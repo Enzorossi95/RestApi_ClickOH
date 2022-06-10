@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    volumes:
+      - data-test-rest-api-click:/usr/src/app
+    ports:
+      - 8000:8000
+    environment:
+      ENV: development
+      DJANGO_SUPERUSER_PASSWORD: admin
+      DJANGO_SUPERUSER_EMAIL: admin@example.com
+      DJANGO_SUPERUSER_USERNAME: admin
+    depends_on:
+      - db
+
+  db:
+      image: postgres:13
+      ports:
+        - 5432:5432
+      volumes:
+        - postgres-data-rest-api-click:/var/lib/postgresql/data
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: postgres
+volumes:
+  data-test-rest-api-click:
+  postgres-data-rest-api-click:
+
+
+
